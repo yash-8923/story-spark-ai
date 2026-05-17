@@ -197,8 +197,8 @@ const StoriesViewComponent: React.FC<StoriesComponentProps> = ({
                   />
                 </div>
                 <div className="px-3 py-1">
-                  <div className="mb-2 rounded-full bg-cyan-600 py-0.5 px-2.5 border border-transparent text-xs text-gray-400 transition-all shadow-sm w-20 text-center">
-                    {selectedStory.tag.toUpperCase()}
+                  <div className="mb-2 inline-flex items-center rounded-full bg-purple-600 py-1 px-3 text-xs font-semibold text-white shadow-sm">
+                   {selectedStory.tag.toUpperCase()}
                   </div>
                   <h6 className="mb-1 text-gray-300 text-xl font-semibold">
                     {selectedStory.title}
