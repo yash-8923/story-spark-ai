@@ -257,24 +257,22 @@ const FooterComponent = () => {
             <span className="italic text-slate-400/60">Crafted for storytellers</span>
           </div>
           <div className="flex items-center gap-2.5">
-            {legalLinks
-              .filter((link) => link.label !== "Report a Bug")
-              .map(({ label, to }, i, filteredArray) => (
-                <span key={to} className="flex items-center gap-2">
-                  <Link to={to} className="text-slate-400/80 hover:text-blue-300">
-                    {label}
-                  </Link>
-                  {i < filteredArray.length - 1 && (
-                    <span className="text-white/[0.12]">|</span>
-                  )}
-                </span>
-              ))}
+            {legalLinks.map(({ label, to }, i) => (
+  <span key={label}>
+    <Link to={to}>
+      {label}
+    </Link>
+
+    {i < legalLinks.length - 1 && (
+      <span className="text-white/[0.12]">|</span>
+    )}
+  </span>
+))}
           </div>
 
         </div>
-
-      </div>
-    </footer>
+        </div>
+</footer>
   );
 };
 
