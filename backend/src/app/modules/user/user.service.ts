@@ -15,7 +15,7 @@ import { Report } from "../report/report.model";
 const allowedSocialFields = ["facebook", "twitter", "linkedin", "instagram"] as const;
 
 const getAllUsers = async (): Promise<IUser[]> => {
-  const result = await User.find({});
+  const result = await User.find({}).select("-password");
   return result;
 };
 
