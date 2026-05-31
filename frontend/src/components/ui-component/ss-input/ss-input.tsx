@@ -18,6 +18,7 @@ interface SSInputProps<T extends FieldValues> {
   validation?: RegisterOptions<T>;
   error?: FieldError;
   autoComplete?: string;
+  autoFocus?: boolean;
 }
 
 const SSInput = <T extends FieldValues>({
@@ -30,16 +31,18 @@ const SSInput = <T extends FieldValues>({
   validation,
   error,
   autoComplete,
+  autoFocus
 }: SSInputProps<T>) => {
   const [showPassword, setShowPassword] = useState(false);
 
+
+
   const inputType =
-    type === "password"
-      ? showPassword
-        ? "text"
-        : "password"
-      : type;
-      
+
+    type === "password" ? (showPassword ? "text" : "password") : type;
+
+
+
   return (
     <div className="w-full min-w-0">
       <label htmlFor={name} className="block text-sm font-medium text-gray-600 dark:text-gray-400">
@@ -51,6 +54,20 @@ const SSInput = <T extends FieldValues>({
             <i className={icon}></i>
           </span>
         )}
+
+       <input
+  type={inputType}
+  id={name}
+  className={`w-full box-border pl-8 pr-10 py-1.5 text-base text-gray-900 dark:text-gray-200 bg-white dark:bg-slate-800 border-0 sm:text-sm ${
+    error
+      ? "outline-red-500"
+      : "outline-gray-800 focus:outline-indigo-600"
+  }`}
+  placeholder={placeholder}
+  autoComplete={autoComplete}
+  {...register(name, validation)}
+/>
+
         <input
           type={inputType}
           id={name}
@@ -63,21 +80,31 @@ const SSInput = <T extends FieldValues>({
           autoComplete={autoComplete}
           {...register(name, validation)}
         />
+
         {type === "password" && (
+
+
           <button
             type="button"
             onClick={() => setShowPassword(!showPassword)}
-            className="absolute inset-y-5 right-0 pr-7 flex items-center text-gray-500"
+
+            className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"
           >
-            <i className={showPassword ? "fi fi-rr-eye" : "fi fi-rr-eye-crossed"}></i>
+            <i
+              className={showPassword ? "fi fi-rr-eye" : "fi fi-rr-eye-crossed"}
+            ></i>
+
           </button>
         )}
+
+
       </div>
       {error && (
-        <p className="text-red-400 text-sm mt-1">
-          {error.message}
-        </p>
+
+        <p className="text-red-400 text-sm mt-1">{error.message}</p>
+
       )}
+
     </div>
   );
 };
