@@ -1,15 +1,25 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Post } from "../../../models/post";
 import { useGetLatestListsQuery } from "../../../redux/apis/post.api";
 import { Post } from "../../../models/post";
 import LoadingAnimation from "../../loading/loading.component";
 import { useNavigate } from "react-router-dom";
 
+const INITIAL_VISIBLE_COUNT = 6;
+
 const LatestPostsComponent = () => {
   const { data, isLoading, isError, refetch } = useGetLatestListsQuery(undefined);
   const navigate = useNavigate();
+  const [showAllPosts, setShowAllPosts] = useState(false);
 
-  // Track the ID of the currently expanded post (null means all are collapsed)
-  const [expandedPostId, setExpandedPostId] = useState<string | null>(null);
+  const posts = (data?.posts ?? []) as Post[];
+  const shouldShowLoadMore = posts.length > INITIAL_VISIBLE_COUNT;
+  const visiblePosts = showAllPosts || !shouldShowLoadMore ? posts : posts.slice(0, INITIAL_VISIBLE_COUNT);
+
+  useEffect(() => {
+    setShowAllPosts(false);
+  }, [data?.posts]);
 
   if (isLoading) return <LoadingAnimation />;
 
@@ -148,6 +158,17 @@ const LatestPostsComponent = () => {
           </div>
         )}
       </div>
+      {shouldShowLoadMore && !showAllPosts && (
+        <div className="mt-6">
+          <button
+            type="button"
+            onClick={() => setShowAllPosts(true)}
+            className="motion-cta cursor-pointer rounded-lg border border-slate-300/70 bg-slate-100 px-5 py-2.5 text-sm font-semibold text-slate-800 shadow-sm hover:bg-white dark:border-white/15 dark:bg-white/5 dark:text-slate-200 dark:hover:bg-white/10"
+          >
+            Load More
+          </button>
+        </div>
+      )}
     </section>
   );
 };

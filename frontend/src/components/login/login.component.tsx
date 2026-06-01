@@ -1,7 +1,10 @@
 import { useForm, SubmitHandler } from "react-hook-form";
+import { Link } from "react-router-dom";
 import SSInput from "../ui-component/ss-input/ss-input";
 import SSButton from "../ui-component/ss-button/ss-button";
 import { useState } from "react";
+import "./auth.css";
+import "@flaticon/flaticon-uicons/css/all/all.css";
 import {
   useLoginUserMutation,
   useGoogleLoginMutation,
@@ -12,6 +15,10 @@ import RedirectComponent from "../redirect.component";
 import toast, { Toaster } from "react-hot-toast";
 import { GoogleLogin, CredentialResponse } from "@react-oauth/google";
 import { WandSparkles, BookOpen, UsersRound } from "lucide-react";
+
+
+
+
 
 type Inputs = {
   email: string;
@@ -25,7 +32,6 @@ const LoginComponent = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
   } = useForm<Inputs>({ mode: "onChange" });
 
   const [isBusy, setIsBusy] = useState<boolean>(false);
@@ -99,7 +105,11 @@ const LoginComponent = () => {
       <div className="absolute top-[-10%] left-[-10%] w-96 h-96 bg-blue-600/20 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute bottom-[-10%] right-[-10%] w-96 h-96 bg-indigo-600/20 rounded-full blur-[120px] pointer-events-none" />
 
+<<<<<<< login-from-correction
+      <div className="relative z-10 flex w-full max-w-md min-w-0 flex-col justify-center py-12">
+=======
       <div className="flex w-full max-w-md flex-col justify-center py-12 relative z-10 box-border">
+>>>>>>> main
 
         <div className="sm:mx-auto sm:w-full sm:max-w-md mb-8">
           <h2 className="text-center text-4xl sm:text-5xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-indigo-400 drop-shadow-sm">
@@ -163,9 +173,18 @@ const LoginComponent = () => {
         </div>
 
 
-        <div className="w-full max-w-md bg-slate-50 dark:bg-slate-800/60 backdrop-blur-xl border border-slate-200 dark:border-slate-700/50 rounded-2xl p-8 sm:p-10 shadow-2xl overflow-hidden">
 
-        <div className="bg-slate-50 dark:bg-slate-800/60 backdrop-blur-xl border border-slate-200 dark:border-slate-700/50 rounded-2xl p-8 sm:p-10 shadow-2xl">
+<<<<<<< login-from-correction
+        <div className="w-full min-w-0 overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 p-8 shadow-2xl backdrop-blur-xl dark:border-slate-700/50 dark:bg-slate-800/60 sm:p-10">
+=======
+        <div className="w-full min-w-0 bg-slate-50 dark:bg-slate-800/60 backdrop-blur-xl border border-slate-200 dark:border-slate-700/50 rounded-2xl p-8 sm:p-10 shadow-2xl">
+
+          <img
+            src="src/assets/login.jpg"
+            alt="Background"
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+>>>>>>> main
 
             <button
             onClick={() => window.location.href = "/"}
@@ -175,12 +194,14 @@ const LoginComponent = () => {
           </button>
 
 
-          <h3 className="mb-6 text-center text-2xl font-bold tracking-tight text-slate-900 dark:text-slate-200">
-            Welcome Back
-          </h3>
+          <div className="absolute inset-0 bg-black/60"></div>
 
           <form
-            className="space-y-5"
+<<<<<<< login-from-correction
+            className="min-w-0 space-y-5"
+=======
+            className="w-full space-y-5 "
+>>>>>>> main
             onSubmit={handleSubmit(onSubmit)}
             >
 
@@ -212,12 +233,12 @@ const LoginComponent = () => {
               />
 
             <div className="flex justify-end -mt-2">
-              <a
-                href="/forgot-password"
+              <Link
+                to="/forgot-password"
                 className="text-xs font-semibold text-blue-400 hover:text-blue-300 transition-colors duration-200"
                 >
                 Forgot Password?
-              </a>
+              </Link>
             </div>
 
             <SSButton
@@ -239,12 +260,18 @@ const LoginComponent = () => {
               <span className="px-4 bg-slate-50 dark:bg-slate-800 text-slate-500 dark:text-slate-400">
                 OR
               </span>
+
             </div>
           </div>
 
+<<<<<<< login-from-correction
+          {/* Explicitly added list-none to prevent stray bullet point artifact on production build */}
+          <div className="mt-6 flex w-full max-w-full justify-center overflow-hidden list-none">
+=======
 
           <div className="mt-6 flex justify-center list-none w-full">
 
+>>>>>>> main
             <GoogleLogin
               onSuccess={handleGoogleLoginSuccess}
               onError={handleGoogleLoginError}
@@ -253,12 +280,23 @@ const LoginComponent = () => {
 
           <p className="mt-8 text-center text-sm text-slate-500 dark:text-slate-400">
             Don't have an account?{" "}
+
+
+            <Link
+              to="/signup"
+
             <a
               href="/signup"
+
               className="font-semibold text-blue-400 hover:text-blue-300 transition-colors duration-200"
               >
               Sign up for free
+
+            </Link>
+
+
             </a>
+
           </p>
         </div>
       </div>
